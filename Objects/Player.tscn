@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Untitled-6.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Untitled-5.png" type="Texture" id=2]
+[ext_resource path="res://Objects/Player.gd" type="Script" id=3]
+[ext_resource path="res://Objects/LaserWeapon.tscn" type="PackedScene" id=4]
+
+[sub_resource type="AnimatedTexture" id=1]
+flags = 4
+frames = 2
+fps = 6.0
+frame_0/texture = ExtResource( 2 )
+frame_1/texture = ExtResource( 1 )
+frame_1/delay_sec = 0.0
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 25.8198
+height = 60.9325
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.548477, 5.11378 )
+scale = Vector2( 0.077882, 0.0951019 )
+texture = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.353561, 1.76777 )
+shape = SubResource( 2 )
+
+[node name="LaserWeapon" parent="." instance=ExtResource( 4 )]
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( -0.353561, 1.76777 )
+shape = SubResource( 2 )
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
